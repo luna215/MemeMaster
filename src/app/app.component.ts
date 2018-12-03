@@ -8,15 +8,9 @@ class Book {
 
 @Component({
     selector: 'app-root',
-    template: `
-        <ul>
-            <li *ngFor="let book of books | async">
-                <pre>{{ book.title | json }}</pre>
-            </li>
-        </ul>
-        <button (click)="addBook()">Add a book!</button>
-    `
+    templateUrl: './app.component.html'
 })
+
 export class AppComponent {
     public books: Observable<any[]>;
     private bookCounter = 0;

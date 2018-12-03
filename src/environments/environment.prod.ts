@@ -3,7 +3,7 @@ export const environment = {
   firebase:  {
     apiKey: "AIzaSyDUMfduGy9YG-o8VKs5aOv6fOwi5pfpS0U",
     authDomain: "meme-master-9f61f.firebaseapp.com",
-    databaseURL: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    databaseURL: "https://meme-master-9f61f.firebaseio.com",
     projectId: "meme-master-9f61f",
     storageBucket: "meme-master-9f61f.appspot.com",
     messagingSenderId: "561179176093"

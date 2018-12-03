@@ -1,0 +1,14 @@
+<div class='leftToolbar'>
+    <ul>
+        <li><input type="file" (change)="renderImage($event)" accept="image/*"></li>
+        <li><input type="text" name="topText" (change)="getUserInput($event)"></li>
+        <li><input type="text" name="bottomText" (change)="getUserInput($event)"></li>
+    </ul>
+</div>
+
+<div class="rightToolbar">
+    <button (click)="uploadImage()">Save</button> 
+</div>
+
+<canvas id="canvas" width="500" height="500"></canvas>
+

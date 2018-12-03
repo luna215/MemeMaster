@@ -1,0 +1,55 @@
+nav {
+    padding: 2em;
+    font-size: 16px;
+    background-color: #495B53;
+    color: white;
+    text-align: center;
+}
+
+nav>ul {
+    list-style-type: none;
+    display: block;
+}
+
+nav>ul>li {
+    display: inline;
+    margin: 0 1em;
+    padding: 2em 1em;
+}
+
+nav>ul>li:hover{
+    margin: 0;
+    background-color: white;
+    color: black;
+    display: inline;
+    padding: 2em 1em;
+}
+
+.right-items {
+    float: right;
+    padding: 2em 1em;
+    margin-top: -2em;
+}
+
+
+.right-items:hover {
+    float: right;
+    background-color: white;
+    color: black;
+    padding: 2em 1em;
+    margin-top: -2em;
+}
+
+.left-items {
+    float: left;
+    padding: 2em 1em;
+    margin-top: -2em;
+}
+
+.left-items:hover {
+    float:left;
+    background-color: white;
+    color: black;
+    padding: 2em 1em;
+    margin-top: -2em;
+}

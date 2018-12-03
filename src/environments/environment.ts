@@ -11,7 +11,7 @@ export const environment = {
     projectId: "meme-master-9f61f",
     storageBucket: "meme-master-9f61f.appspot.com",
     messagingSenderId: "561179176093"
-  }
+  },
 };
 
 /*
