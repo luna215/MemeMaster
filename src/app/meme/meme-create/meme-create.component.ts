@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
-import { timingSafeEqual } from 'crypto';
-import { Reference } from '@angular/fire/storage/interfaces';
 
 @Component({
     selector: 'app-meme-create',
