@@ -50,9 +50,9 @@ export class MemeCreateComponent {
     uploadImage():  void {
         console.log('saving image...');
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-        console.log(canvas.toBlob((blob) => {
+        canvas.toBlob((blob) => {
           this.ref = this.storageRef.ref('catInOveralls.jpg');
           this.ref.put(blob);
-        }));
+        }, 'image/jpeg', 0.95);
     }
 }
