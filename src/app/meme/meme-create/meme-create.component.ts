@@ -17,6 +17,8 @@ export class MemeCreateComponent {
         'bottomText': ''
     };
     ref: AngularFireStorageReference;
+    imgFile: any;
+    memeTitle: string;
     constructor(private storageRef: AngularFireStorage) {}
 
     public renderImage(event): void {
@@ -31,9 +33,9 @@ export class MemeCreateComponent {
             };
             image.src = e.target['result'];
         };
+        console.log(event.target.files[0]);
         reader.readAsDataURL(event.target.files[0]);
-        this.ref = this.storageRef.ref('catInOveralls.jpg');
-        this.ref.put(event.target.files[0]);
+        this.imgFile = event.target.files[0];
     }
 
     getUserInput(event): void {
@@ -48,11 +50,9 @@ export class MemeCreateComponent {
     uploadImage():  void {
         console.log('saving image...');
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-
-        // canvas.toBlob(function(blob) {
-        //     var image = new Image();
-        //     image.src = blob;
-
-        // })
+        console.log(canvas.toBlob((blob) => {
+          this.ref = this.storageRef.ref('catInOveralls.jpg');
+          this.ref.put(blob);
+        }));
     }
 }
