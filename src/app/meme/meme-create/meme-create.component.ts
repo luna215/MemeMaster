@@ -17,6 +17,7 @@ export class MemeCreateComponent {
     ref: AngularFireStorageReference;
     imgFile: any;
     memeTitle: string;
+    result: any;
     constructor(private storageRef: AngularFireStorage) {}
 
     public renderImage(event): void {
@@ -31,7 +32,6 @@ export class MemeCreateComponent {
             };
             image.src = e.target['result'];
         };
-        console.log(event.target.files[0]);
         reader.readAsDataURL(event.target.files[0]);
         this.imgFile = event.target.files[0];
     }
@@ -40,9 +40,21 @@ export class MemeCreateComponent {
         this.userText[event.target.name] = event.target.value;
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
-        ctx.font = '24px serif';
-        ctx.fillText(this.userText['topText'], 100, 50);
-        ctx.fillText(this.userText['bottomText'], 100, 400);
+        const reader = new FileReader();
+        reader.onload = (function(userText) {
+            return function(e) {
+                const image = new Image()
+                image.onload = function() {
+                    ctx.drawImage(image, 0, 0, image.width, image.height,
+                                    0, 0, canvas.width, canvas.height);
+                    ctx.font = '24px serif';
+                    ctx.fillText(userText['topText'], 100, 50);
+                    ctx.fillText(userText['bottomText'], 100, 400);
+                }
+                image.src = e.target['result'];
+            }
+        })(this.userText);
+        reader.readAsDataURL(this.imgFile);
     }
 
     uploadImage():  void {
