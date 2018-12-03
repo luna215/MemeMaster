@@ -37,6 +37,8 @@ export class MemeCreateComponent {
     }
 
     getUserInput(event): void {
+        if (!this.imgFile) return;
+        
         this.userText[event.target.name] = event.target.value;
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
