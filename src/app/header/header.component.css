@@ -27,13 +27,17 @@ nav>ul>li:hover{
 
 .right-items {
     float: right;
-    padding: 2em 1em;
-    margin-top: -2em;
+    height: 100%;
 }
 
+.right-items>li {
+  display: inline;
+  margin-right: 1em;
+  padding: 2em 1em;
 
-.right-items:hover {
-    float: right;
+}
+
+.right-item>li>a:hover {
     background-color: white;
     color: black;
     padding: 2em 1em;
