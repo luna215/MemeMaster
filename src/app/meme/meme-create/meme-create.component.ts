@@ -61,9 +61,11 @@ export class MemeCreateComponent {
     uploadImage():  void {
         console.log('saving image...');
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+        this.userText['title'] = this.userText['title'].toLocaleLowerCase().replace(/\s/g, '-');
         canvas.toBlob((blob) => {
-          this.ref = this.storageRef.ref('catInOveralls.jpg');
+          this.ref = this.storageRef.ref(`meme/${this.userText['title']}.jpg`);
           this.ref.put(blob);
         }, 'image/jpeg', 0.95);
+        console.log('Meme successfully saved!');
     }
 }
