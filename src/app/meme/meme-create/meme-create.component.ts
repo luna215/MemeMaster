@@ -37,8 +37,7 @@ export class MemeCreateComponent {
     }
 
     getUserInput(event): void {
-        if (!this.imgFile) return;
-        
+        if (!this.imgFile) { return; }
         this.userText[event.target.name] = event.target.value;
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
@@ -52,9 +51,9 @@ export class MemeCreateComponent {
                     ctx.font = '24px serif';
                     ctx.fillText(userText['topText'], 100, 50);
                     ctx.fillText(userText['bottomText'], 100, 400);
-                }
+                };
                 image.src = e.target['result'];
-            }
+            };
         })(this.userText);
         reader.readAsDataURL(this.imgFile);
     }

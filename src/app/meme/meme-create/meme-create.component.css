@@ -15,4 +15,9 @@ canvas {
 .rightToolbar {
     float: right;
     margin-right: 10em;
+    display:block;
+}
+
+.rightToolbar>button {
+  display: block;
 }
