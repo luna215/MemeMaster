@@ -27,7 +27,7 @@ export class MemeListComponent implements AfterViewInit {
 
         // tslint:disable-next-line:forin
         for (let i = 0; i < memes.length; i++) {
-          this.storageRef.child(memes[i]['ref']).getDownloadURL().then(function(url) {
+          this.storageRef.child(memes[i]['refToMeme']).getDownloadURL().then(function(url) {
             const img = document.getElementById(`${memes[i]['title']}`) as HTMLImageElement;
             img.src = url;
           });

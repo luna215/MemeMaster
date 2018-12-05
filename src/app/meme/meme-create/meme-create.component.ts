@@ -71,13 +71,15 @@ export class MemeCreateComponent {
             title: this.userText['title'],
             topText: this.userText['topText'],
             bottomText: this.userText['bottomText'],
-            ref: `meme/${this.userText['title']}.jpg`
+            refToMeme: `meme/${this.userText['title']}.jpg`,
+            refToOriginal: `original/${this.imgFile.name}`,
         };
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         canvas.toBlob((blob) => {
           this.ref = this.storageRef.ref(`meme/${this.userText['title']}.jpg`);
           this.ref.put(blob);
         }, 'image/jpeg', 0.95);
+        this.storageRef.ref(`original/${this.imgFile.name}`).put(this.imgFile);
         this.list.push(memeData);
     }
 }
