@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { MemeListComponent } from './meme/meme-list/meme-list.component';
 import { MemeCreateComponent } from './meme/meme-create/meme-create.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     MemeListComponent,
     MemeCreateComponent,
     SignupComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
