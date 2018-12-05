@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +13,8 @@ import { environment } from '../environments/environment';
 import { HeaderComponent } from './header/header.component';
 import { MemeListComponent } from './meme/meme-list/meme-list.component';
 import { MemeCreateComponent } from './meme/meme-create/meme-create.component';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +28,10 @@ import { SignupComponent } from './signup/signup.component';
     AngularFireModule.initializeApp(environment.firebase, 'meme-master'),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

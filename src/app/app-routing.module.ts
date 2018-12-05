@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MemeCreateComponent } from './meme/meme-create/meme-create.component';
 import { MemeListComponent } from './meme/meme-list/meme-list.component';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   {path: '', component: MemeListComponent},
