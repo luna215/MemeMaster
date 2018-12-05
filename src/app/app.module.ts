@@ -15,6 +15,7 @@ import { MemeListComponent } from './meme/meme-list/meme-list.component';
 import { MemeCreateComponent } from './meme/meme-create/meme-create.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ReplaceDashes } from './app.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoginComponent } from './auth/login/login.component';
     MemeCreateComponent,
     SignupComponent,
     LoginComponent,
+    ReplaceDashes,
   ],
   imports: [
     BrowserModule,

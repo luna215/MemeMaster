@@ -1,4 +1,4 @@
 <div *ngFor="let meme of memes | async" class="card">
-  <h3>{{ meme.title }}</h3>
+  <h3>{{ meme.title | replaceDashes }}</h3>
   <img id="{{ meme.title }}" height="100" width="100">
 </div>
