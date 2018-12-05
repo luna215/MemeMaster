@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 
 @Component({
@@ -18,7 +19,12 @@ export class MemeCreateComponent {
     imgFile: any;
     memeTitle: string;
     result: any;
-    constructor(private storageRef: AngularFireStorage) {}
+
+    private list: any;
+
+    constructor(private storageRef: AngularFireStorage, private db: AngularFireDatabase) {
+        this.list = db.list('/memes');
+    }
 
     public renderImage(event): void {
         const reader = new FileReader();
@@ -60,12 +66,18 @@ export class MemeCreateComponent {
 
     uploadImage():  void {
         console.log('saving image...');
-        const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         this.userText['title'] = this.userText['title'].toLocaleLowerCase().replace(/\s/g, '-');
+        const memeData = {
+            title: this.userText['title'], 
+            topText: this.userText['topText'], 
+            bottomText: this.userText['bottomText'],
+            ref: `meme/${this.userText['title']}.jpg`
+        };
+        const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         canvas.toBlob((blob) => {
           this.ref = this.storageRef.ref(`meme/${this.userText['title']}.jpg`);
           this.ref.put(blob);
         }, 'image/jpeg', 0.95);
-        console.log('Meme successfully saved!');
+        this.list.push(memeData);
     }
 }

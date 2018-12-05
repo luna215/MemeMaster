@@ -1,7 +1,11 @@
-<ul>
-    <li *ngFor="let meme of memes | async">
-       {{ meme | json }}
+<ul *ngFor="let meme of memes | async">
+    <li>
+       {{ meme.title }}
     </li>
+    <li>
+        {{ meme.ref }}
+    </li>
+    <li><img id="{{ meme.title }}"></li>
 </ul>
 
 <button (click)="addMeme()">Add Meme</button>
