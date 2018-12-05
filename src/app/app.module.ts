@@ -11,13 +11,14 @@ import { environment } from '../environments/environment';
 import { HeaderComponent } from './header/header.component';
 import { MemeListComponent } from './meme/meme-list/meme-list.component';
 import { MemeCreateComponent } from './meme/meme-create/meme-create.component';
-
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MemeListComponent,
-    MemeCreateComponent
+    MemeCreateComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
