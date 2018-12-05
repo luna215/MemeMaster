@@ -50,7 +50,7 @@ export class MemeCreateComponent {
         const reader = new FileReader();
         reader.onload = (function(userText) {
             return function(e) {
-                const image = new Image()
+                const image = new Image();
                 image.onload = function() {
                     ctx.drawImage(image, 0, 0, image.width, image.height,
                                     0, 0, canvas.width, canvas.height);
@@ -68,8 +68,8 @@ export class MemeCreateComponent {
         console.log('saving image...');
         this.userText['title'] = this.userText['title'].toLocaleLowerCase().replace(/\s/g, '-');
         const memeData = {
-            title: this.userText['title'], 
-            topText: this.userText['topText'], 
+            title: this.userText['title'],
+            topText: this.userText['topText'],
             bottomText: this.userText['bottomText'],
             ref: `meme/${this.userText['title']}.jpg`
         };

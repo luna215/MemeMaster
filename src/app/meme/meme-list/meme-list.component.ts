@@ -3,9 +3,6 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 
-import { Meme } from '../meme.model';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
-
 @Component({
     selector: 'app-meme-list',
     templateUrl: './meme-list.component.html',
@@ -17,24 +14,28 @@ export class MemeListComponent implements AfterViewInit {
     private memeCounter = 0;
     private list: any;
     private url: any;
-    private ref: AngularFireStorageReference;
+    private storageRef: any;
 
-    constructor(private storageRef: AngularFireStorage, private db: AngularFireDatabase) {
+    constructor(private storage: AngularFireStorage, private db: AngularFireDatabase) {
         this.memes = db.list('/memes').valueChanges();
         this.list = db.list('/memes');
+        this.storageRef = storage.storage.ref();
     }
 
     ngAfterViewInit() {
-        this.ref = this.storageRef.ref('meme/');
-        for(let i = 0; i < 1; i++) {
-            this.url = this.ref.child(`pau-luna.jpg`);
-            console.log(this.url);
-            const img = document.getElementById(`${this.list[i]}.title`) as HTMLImageElement;
-            console.log(img);
+      this.db.list('/memes').valueChanges().subscribe(memes => {
+
+        // tslint:disable-next-line:forin
+        for (let i = 0; i < memes.length; i++) {
+          this.storageRef.child(memes[i]['ref']).getDownloadURL().then(function(url) {
+            const img = document.getElementById(`${memes[i]['title']}`) as HTMLImageElement;
+            img.src = url;
+          });
         }
+      });
     }
 
     addMeme(): void {
-        this.list.push({id: this.memeCounter++, title: `This is the ${this.memeCounter}`});
+
     }
 }
