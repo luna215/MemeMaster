@@ -11,11 +11,13 @@ export class AuthService {
   successful: boolean;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
+  private userId;
 
   constructor(private firebase: AngularFireAuth, private router: Router) {
     firebase.auth.onAuthStateChanged((user) => {
       if (user) {
         console.log('User is signed in');
+        this.userId = user.uid;
         this.authStatusListener.next(true);
         this.isAuthenticated = true;
       } else {
@@ -26,13 +28,17 @@ export class AuthService {
     });
    }
 
-   getIsAuth() {
-     return this.isAuthenticated;
-   }
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
 
-   getAuthStatusListener() {
-     return this.authStatusListener.asObservable();
-   }
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
+
+  getUserId() {
+    return this.userId;
+  }
 
   createUser(email, password) {
 

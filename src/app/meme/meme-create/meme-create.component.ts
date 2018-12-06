@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
+
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
     selector: 'app-meme-create',
@@ -19,11 +22,15 @@ export class MemeCreateComponent {
     imgFile: any;
     memeTitle: string;
     result: any;
-
+    private userId;
     private list: any;
 
-    constructor(private storageRef: AngularFireStorage, private db: AngularFireDatabase) {
-        this.list = db.list('/memes');
+    constructor(private storageRef: AngularFireStorage,
+                private db: AngularFireDatabase,
+                private auth: AuthService,
+                private router: Router) {
+        this.userId = this.auth.getUserId();
+        this.list = db.list(`${this.userId}/memesData`);
     }
 
     public renderImage(event): void {
@@ -71,15 +78,16 @@ export class MemeCreateComponent {
             title: this.userText['title'],
             topText: this.userText['topText'],
             bottomText: this.userText['bottomText'],
-            refToMeme: `meme/${this.userText['title']}.jpg`,
-            refToOriginal: `original/${this.imgFile.name}`,
+            refToMeme: `${this.userId}/meme/${this.userText['title']}.jpg`,
+            refToOriginal: `${this.userId}/original/${this.imgFile.name}`,
         };
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         canvas.toBlob((blob) => {
-          this.ref = this.storageRef.ref(`meme/${this.userText['title']}.jpg`);
+          this.ref = this.storageRef.ref(`${this.userId}/meme/${this.userText['title']}.jpg`);
           this.ref.put(blob);
         }, 'image/jpeg', 0.95);
-        this.storageRef.ref(`original/${this.imgFile.name}`).put(this.imgFile);
+        this.storageRef.ref(`${this.userId}/original/${this.imgFile.name}`).put(this.imgFile);
         this.list.push(memeData);
+        this.router.navigate(['']);
     }
 }
