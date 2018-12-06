@@ -1,3 +1,7 @@
+a:hover {
+    cursor: pointer;
+} 
+
 nav {
     padding: 2em;
     font-size: 16px;
