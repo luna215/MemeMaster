@@ -1,0 +1,13 @@
+.signupCard {
+  width: 30%;
+  text-align: center;
+  display: block;
+  position: relative;
+  margin: 2em auto;
+  border-radius: 4px;
+  box-shadow: 10%;
+}
+
+hr {
+  margin: 1em 0;
+}

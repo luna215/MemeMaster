@@ -1,7 +1,20 @@
-<h1>Login</h1>
-<form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
-  <label>Email: </label><input type="input" name="email" ngModel>
-  <label>Password: </label><input type="password" name="password" ngModel>
-  <button type="submit">Login</button>
-</form>
-<button [routerLink]="['/signup']">Signup</button>
+
+<mat-card class="loginCard">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+      <label>Email: </label>
+      <input matInput type="email" name="email" ngModel required>
+      <label> Password: </label>
+      <input matInput type="password" name="password" ngModel required>
+      <hr>
+      <button type="submit">Login</button>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button [routerLink]="['/signup']">Signup</button>
+  </mat-card-actions>
+</mat-card>
+

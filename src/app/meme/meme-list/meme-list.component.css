@@ -4,7 +4,8 @@
   position: relative;
   margin: 2em auto;
   border-radius: 4px;
-  box-shadow: 10%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .mat-card-image {
