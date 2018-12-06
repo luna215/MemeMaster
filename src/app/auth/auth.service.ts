@@ -7,33 +7,31 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 export class AuthService {
 
-  successful: Promise<boolean>;
+  successful: boolean;
   constructor(private firebase: AngularFireAuth, private router: Router) { }
 
 
   createUser(email, password) {
-    this.successful = this.firebase.auth
+
+    this.firebase.auth
         .createUserWithEmailAndPassword(email, password)
-        .then(function() { return true})
-        .catch(function() { return false });
-    if(!this.successful['i']){
-      alert('Uh oh! There was an issue. Try again.')
-      return;
-    }
-    this.router.navigate(['']);
+        .then(() => { this.router.navigate([''])})
+        .catch(() => { alert('Uh oh! There was an issue. Try again.') });
   }
 
   login(email, password) {
-    this.successful = this.firebase.auth
+     this.firebase.auth
         .signInWithEmailAndPassword(email, password)
-        .then(function() { return true; })
-        .catch(function() { return false; });
+        .then(() => { this.router.navigate(['']) })
+        .catch(() => { alert('Uh oh! We couldn\'t find an account with those credentials.') });
     
-    if(!this.successful['i']) {
-      alert('Uh oh! We can\'t find an account with those credentials.' );
-      return;
-    }
-    
-    this.router.navigate(['']);
+
+  }
+
+  logout() { 
+   this.firebase.auth
+          .signOut()
+          .then(() => { this.router.navigate(['/login'])})
+          .catch(() => { alert('We had trouble signing you out. Therefor, you can never leave us! :)')});
   }
 }
