@@ -10,11 +10,11 @@ export class AuthService {
 
   successful: boolean;
   private authStatusListener = new Subject<boolean>();
-  private isAuthenticated: boolean = false;
+  private isAuthenticated = false;
 
   constructor(private firebase: AngularFireAuth, private router: Router) {
     firebase.auth.onAuthStateChanged((user) => {
-      if(user) {
+      if (user) {
         console.log('User is signed in');
         this.authStatusListener.next(true);
         this.isAuthenticated = true;
@@ -23,7 +23,7 @@ export class AuthService {
         this.authStatusListener.next(false);
         this.isAuthenticated = false;
       }
-    })
+    });
    }
 
    getIsAuth() {
@@ -49,18 +49,18 @@ export class AuthService {
   login(email, password) {
      this.firebase.auth
         .signInWithEmailAndPassword(email, password)
-        .then(() => { 
+        .then(() => {
           this.authStatusListener.next(true);
           this.router.navigate(['']) })
         .catch(() => { alert('Uh oh! We couldn\'t find an account with those credentials.') });
-    
+
 
   }
 
-  logout() { 
+  logout() {
    this.firebase.auth
           .signOut()
-          .then(() => { 
+          .then(() => {
             this.authStatusListener.next(false);
             this.router.navigate(['/login'])})
           .catch(() => { alert('We had trouble signing you out. Therefor, you can never leave us! :)')});
