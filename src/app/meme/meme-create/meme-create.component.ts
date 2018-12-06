@@ -72,6 +72,10 @@ export class MemeCreateComponent {
     }
 
     uploadImage():  void {
+        if (!this.imgFile || this.userText['title'] === '') {
+          alert('Oops, you for got to set something.');
+          return;
+        }
         console.log('saving image...');
         this.userText['title'] = this.userText['title'].toLocaleLowerCase().replace(/\s/g, '-');
         const memeData = {

@@ -1,9 +1,9 @@
 <nav>
     <ul>
         <div class="left-items">
-            <li><a>MemeMaster</a></li>
+            <li><a routeLink="/">MemeMaster</a></li>
         </div>
-        <li><a>My Library</a></li>
+        <li><a routerLink="/">My Library</a></li>
         <div class="right-items">
             <li *ngIf="userIsAuthenticated"><a routerLink="/create">Create</a></li>
             <li *ngIf="!userIsAuthenticated"><a routerLink="/login">Login</a></li>
