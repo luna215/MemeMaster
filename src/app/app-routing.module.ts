@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'create', component: MemeCreateComponent, canActivate: [AuthGaurd]},
-  {path: 'edit', component: MemeCreateComponent, canActivate: [AuthGaurd]}
+  {path: 'edit/:memeTitle', component: MemeCreateComponent, canActivate: [AuthGaurd]}
 ];
 
 @NgModule({

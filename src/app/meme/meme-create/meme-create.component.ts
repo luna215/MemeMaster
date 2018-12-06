@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 
@@ -11,26 +11,55 @@ import { AuthService } from 'src/app/auth/auth.service';
     styleUrls: ['./meme-create.component.css']
 })
 
-export class MemeCreateComponent {
+export class MemeCreateComponent implements OnInit {
     reader = new FileReader();
     userText = {
         'title': '',
         'topText': '',
-        'bottomText': ''
+        'bottomText': '',
+        'url': '',
     };
-    ref: AngularFireStorageReference;
+    ref: any;
     imgFile: any;
-    memeTitle: string;
     result: any;
     private userId;
     private userMemeRef: any;
+    private mode = 'create';
 
     constructor(private storageRef: AngularFireStorage,
                 private db: AngularFireDatabase,
                 private auth: AuthService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
         this.userId = this.auth.getUserId();
         this.userMemeRef = db.database.ref(`${this.userId}`).child(`memesData`);
+
+    }
+
+    ngOnInit() {
+      this.route
+          .paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('memeTitle')) {
+              this.mode = 'edit';
+              this.userText['title'] = paramMap.get('memeTitle');
+              this.db.list(`${this.userId}/memesData/${this.userText['title']}`).valueChanges().subscribe(data => {
+                  this.ref =  this.storageRef.storage.ref(`${data[2]}`).getDownloadURL().then(url => {
+                    // const xhr = new XMLHttpRequest();
+                    // xhr.responseType = 'blob';
+                    // xhr.setRequestHeader = (name: 'Access-Control-Allow-Origin');
+                    // xhr.onload = (function(imgFile) {
+                    //   return function() {
+                    //     imgFile = xhr.response;
+                    //   };
+                    // })(this.imgFile);
+                    // xhr.open('GET', url);
+                    // xhr.send();
+
+                    // this.getUserInput();
+                  });
+              });
+            }
+          });
     }
 
     public renderImage(event): void {
@@ -49,9 +78,11 @@ export class MemeCreateComponent {
         this.imgFile = event.target.files[0];
     }
 
-    getUserInput(event): void {
+    public getUserInput(event?): void {
         if (!this.imgFile) { return; }
-        this.userText[event.target.name] = event.target.value;
+        if (event) {
+          this.userText[event.target.name] = event.target.value;
+        }
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
         const reader = new FileReader();
@@ -65,6 +96,7 @@ export class MemeCreateComponent {
                     ctx.fillText(userText['topText'], 100, 50);
                     ctx.fillText(userText['bottomText'], 100, 400);
                 };
+                console.log(e.target['result']);
                 image.src = e.target['result'];
             };
         })(this.userText);

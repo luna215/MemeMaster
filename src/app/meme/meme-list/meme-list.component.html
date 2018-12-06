@@ -8,7 +8,7 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>SHARE</button>
-    <button mat-button>EDIT</button>
+    <button [routerLink]="['/edit', meme.title]" mat-button>EDIT</button>
     <button mat-button>DELETE</button>
   </mat-card-actions>
 </mat-card>
