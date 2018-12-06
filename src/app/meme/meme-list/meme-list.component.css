@@ -1,0 +1,13 @@
+.example-card {
+  width: 30%;
+  display: block;
+  position: relative;
+  margin: 2em auto;
+  border-radius: 4px;
+  box-shadow: 10%;
+}
+
+.mat-card-image {
+  width: calc(100% + 32px);
+  height: 50%;
+}
