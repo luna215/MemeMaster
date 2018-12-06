@@ -24,7 +24,6 @@ export class MemeListComponent implements AfterViewInit {
                 private auth: AuthService) {
         this.userId = this.auth.getUserId();
         this.memes = db.list(`${this.userId}/memesData`).valueChanges();
-        this.list = db.list('/memes');
         this.storageRef = storage.storage.ref();
     }
 
@@ -38,9 +37,5 @@ export class MemeListComponent implements AfterViewInit {
           });
         }
       });
-    }
-
-    addMeme(): void {
-
     }
 }

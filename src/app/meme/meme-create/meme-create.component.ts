@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 
 import { AuthService } from 'src/app/auth/auth.service';
@@ -23,14 +23,14 @@ export class MemeCreateComponent {
     memeTitle: string;
     result: any;
     private userId;
-    private list: any;
+    private userMemeRef: any;
 
     constructor(private storageRef: AngularFireStorage,
                 private db: AngularFireDatabase,
                 private auth: AuthService,
                 private router: Router) {
         this.userId = this.auth.getUserId();
-        this.list = db.list(`${this.userId}/memesData`);
+        this.userMemeRef = db.database.ref(`${this.userId}`).child(`memesData`);
     }
 
     public renderImage(event): void {
@@ -91,7 +91,7 @@ export class MemeCreateComponent {
           this.ref.put(blob);
         }, 'image/jpeg', 0.95);
         this.storageRef.ref(`${this.userId}/original/${this.imgFile.name}`).put(this.imgFile);
-        this.list.push(memeData);
+        this.userMemeRef.child(`${this.userText['title']}`).set(memeData);
         this.router.navigate(['']);
     }
 }
