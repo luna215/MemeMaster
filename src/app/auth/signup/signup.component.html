@@ -8,11 +8,11 @@
         <label>Email: </label><input type="input" name="email" ngModel>
         <label> Password: </label><input type="password" name="password" ngModel>
         <hr>
-        <button type="submit">Signup</button>
+        <button mat-stroked-button type="submit">signup</button>
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button [routerLink]="['/login']">Login</button>
+      <button mat-stroked-button color="accent" [routerLink]="['/login']">login</button>
     </mat-card-actions>
   </mat-card>
 

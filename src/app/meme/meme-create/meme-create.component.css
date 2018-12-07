@@ -5,19 +5,25 @@ canvas {
     margin-right: auto;
 }
 
+input {
+  display: block;
+  width: 80%;
+}
+
 .leftToolbar {
     float: left;
     background-color: white;
-    margin-left: 10em;
+    margin-left: 25%;
     padding: 0;
 }
 
 .rightToolbar {
     float: right;
-    margin-right: 10em;
+    margin-right: 25%;
     display:block;
 }
 
 .rightToolbar>button {
   display: block;
+  margin-bottom: 0.5em;
 }

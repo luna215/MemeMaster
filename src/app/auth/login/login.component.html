@@ -6,15 +6,15 @@
   <mat-card-content>
     <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
       <label>Email: </label>
-      <input matInput type="email" name="email" ngModel required>
+      <input type="email" name="email" ngModel required>
       <label> Password: </label>
-      <input matInput type="password" name="password" ngModel required>
+      <input type="password" name="password" ngModel required>
       <hr>
-      <button type="submit">Login</button>
+      <button mat-stroked-button type="submit">login</button>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button [routerLink]="['/signup']">Signup</button>
+    <button mat-stroked-button color="accent" [routerLink]="['/signup']">Signup</button>
   </mat-card-actions>
 </mat-card>
 

@@ -38,4 +38,14 @@ export class MemeListComponent implements AfterViewInit {
         }
       });
     }
+
+    share(title) {
+      const img = document.getElementById(title) as HTMLImageElement;
+      const src = img.src;
+      const alt = img.getAttribute('alt');
+
+      window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent(src) +
+                  '&t=' + encodeURIComponent(alt), 'sharer', 'toolbar=0,status=0,width=626,height=436');
+      return false;
+    }
 }

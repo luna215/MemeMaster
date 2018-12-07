@@ -1,13 +1,13 @@
 <form>
   <div class='leftToolbar'>
     <input type="file" (change)="renderImage($event)" accept="image/*" required>
-    <input type="text" name="title" (change)="getUserInput($event)" required>
-    <input type="text" name="topText" (change)="getUserInput($event)">
-    <input type="text" name="bottomText" (change)="getUserInput($event)">
+    <input type="text" name="title" (change)="getUserInput($event)" placeholder="Title" required>
+    <input type="text" name="topText" (change)="getUserInput($event)" placeholder="Top text">
+    <input type="text" name="bottomText" (change)="getUserInput($event)" placeholder="Bottom text">
   </div>
   <div class="rightToolbar">
-    <button type="submit" (click)="uploadImage()" mat-button>Save</button>
-    <button routerLink="/"mat-button>Cancel</button>
+    <button mat-flat-button color="primary" type="submit" (click)="uploadImage()" mat-button>Save</button>
+    <button mat-flat-button routerLink="/"mat-button>Cancel</button>
   </div>
 </form>
 

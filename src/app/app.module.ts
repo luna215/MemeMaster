@@ -7,6 +7,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MatCardModule,
+         MatToolbarModule,
+         MatButtonModule,
+         MatFormFieldModule,
         } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +42,9 @@ import { ReplaceDashes } from './app.pipe';
     HttpModule,
     FormsModule,
     MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]

@@ -100,6 +100,9 @@ export class MemeCreateComponent implements OnInit {
                     ctx.drawImage(image, 0, 0, image.width, image.height,
                                     0, 0, canvas.width, canvas.height);
                     ctx.font = '24px serif';
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 8;
+                    ctx.fillStyle = 'white';
                     ctx.fillText(userText['topText'], 100, 50);
                     ctx.fillText(userText['bottomText'], 100, 400);
                 };
@@ -112,7 +115,7 @@ export class MemeCreateComponent implements OnInit {
 
     uploadImage():  void {
         if (!this.imgFile || this.userText['title'] === '') {
-          alert('Oops, you for got to set something.');
+          alert('You must upload an image and give it a title.');
           return;
         }
         console.log('saving image...');

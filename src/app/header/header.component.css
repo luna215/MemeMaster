@@ -1,63 +1,7 @@
-a:hover {
-    cursor: pointer;
-} 
-
-nav {
-    padding: 2em;
-    font-size: 16px;
-    background-color: #495B53;
-    color: white;
-    text-align: center;
+.example-icon {
+  padding: 0 14px;
 }
 
-nav>ul {
-    list-style-type: none;
-    display: block;
-}
-
-nav>ul>li {
-    display: inline;
-    margin: 0 1em;
-    padding: 2em 1em;
-}
-
-nav>ul>li:hover{
-    margin: 0;
-    background-color: white;
-    color: black;
-    display: inline;
-    padding: 2em 1em;
-}
-
-.right-items {
-    float: right;
-    height: 100%;
-}
-
-.right-items>li {
-  display: inline;
-  margin-right: 1em;
-  padding: 2em 1em;
-
-}
-
-.right-item>li>a:hover {
-    background-color: white;
-    color: black;
-    padding: 2em 1em;
-    margin-top: -2em;
-}
-
-.left-items {
-    float: left;
-    padding: 2em 1em;
-    margin-top: -2em;
-}
-
-.left-items:hover {
-    float:left;
-    background-color: white;
-    color: black;
-    padding: 2em 1em;
-    margin-top: -2em;
+.example-spacer {
+  flex: 1 1 auto;
 }
