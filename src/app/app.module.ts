@@ -10,6 +10,7 @@ import { MatCardModule,
          MatToolbarModule,
          MatButtonModule,
          MatFormFieldModule,
+         MatProgressSpinnerModule,
         } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,7 +45,8 @@ import { ReplaceDashes } from './app.pipe';
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]

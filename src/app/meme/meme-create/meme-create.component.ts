@@ -4,8 +4,6 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -22,6 +20,7 @@ export class MemeCreateComponent implements OnInit {
         'bottomText': '',
         'url': '',
     };
+    isLoading = true;
     ref: any;
     imgFile: any;
     result: any;
@@ -35,7 +34,7 @@ export class MemeCreateComponent implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private http: Http,
-                private sanitizer: DomSanitizer) {
+                ) {
         this.userId = this.auth.getUserId();
         this.userMemeRef = db.database.ref(`${this.userId}`).child(`memesData`);
 
@@ -44,10 +43,13 @@ export class MemeCreateComponent implements OnInit {
     ngOnInit() {
       this.route
           .paramMap.subscribe((paramMap: ParamMap) => {
+            this.isLoading = true;
             if (paramMap.has('memeTitle')) {
               this.mode = 'edit';
               this.userText['title'] = paramMap.get('memeTitle');
               this.db.list(`${this.userId}/memesData/${this.userText['title']}`).valueChanges().subscribe(data => {
+                  this.userText['topText'] = data[4] as string ;
+                  this.userText['bottomText'] = data[0] as string;
                   this.ref =  this.storageRef.storage.ref(`${data[2]}`).getDownloadURL().then(url => {
                     this.http.get('https://cors-anywhere.herokuapp.com/' + url, {
                       responseType: ResponseContentType.Blob,
@@ -58,8 +60,6 @@ export class MemeCreateComponent implements OnInit {
                         });
                         this.imgFile.name = `${this.userText['title']}`;
                       }).then(() => {
-                          this.userText['topText'] = data[4] as string ;
-                          this.userText['bottomText'] = data[0] as string;
                           this.getUserInput();
                         }
                       );
@@ -70,6 +70,7 @@ export class MemeCreateComponent implements OnInit {
     }
 
     public renderImage(event): void {
+        this.isLoading = true;
         const reader = new FileReader();
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
@@ -83,6 +84,28 @@ export class MemeCreateComponent implements OnInit {
         };
         reader.readAsDataURL(event.target.files[0]);
         this.imgFile = event.target.files[0];
+        this.isLoading = false;
+    }
+
+    public renderFromUrl(event?): void {
+      this.isLoading = true;
+      this.http.get('https://cors-anywhere.herokuapp.com/' + event.target.value, {
+          responseType: ResponseContentType.Blob,
+      }).toPromise()
+        .then((res: any) => {
+          this.imgFile = new Blob([res._body], {
+            type: res.headers.get('Content-Type')
+          });
+          this.imgFile.name = `${this.userText['title']}`;
+        }).then(() => {
+            this.getUserInput();
+            this.isLoading = false;
+        })
+        .catch((err) => {
+          if (err) {
+            alert('That is not a proper url.');
+          }
+        });
     }
 
     public getUserInput(event?): void {
@@ -90,6 +113,7 @@ export class MemeCreateComponent implements OnInit {
         if (event) {
           this.userText[event.target.name] = event.target.value;
         }
+        this.isLoading = true;
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
         const reader = new FileReader();
@@ -111,6 +135,7 @@ export class MemeCreateComponent implements OnInit {
             };
         })(this.userText);
         reader.readAsDataURL(this.imgFile);
+        this.isLoading = false;
     }
 
     uploadImage():  void {

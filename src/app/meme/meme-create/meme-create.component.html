@@ -1,16 +1,16 @@
 <form>
   <div class='leftToolbar'>
-    <input type="file" (change)="renderImage($event)" accept="image/*" required>
-    <input type="text" name="title" (change)="getUserInput($event)" placeholder="Title" required>
-    <input type="text" name="topText" (change)="getUserInput($event)" placeholder="Top text">
-    <input type="text" name="bottomText" (change)="getUserInput($event)" placeholder="Bottom text">
+    <input type="file" (change)="renderImage($event)" accept="image/*">
+    <input type="text" (change)="renderFromUrl($event)" placeholder="url">
+    <input type="text" [(ngModel)]="userText.title" name="title" (keyup)="getUserInput($event)" placeholder="Title">
+    <input type="text" [(ngModel)]="userText.topText" name="topText" (keyup)="getUserInput($event)" placeholder="Top text">
+    <input type="text" [(ngModel)]="userText.bottomText" name="bottomText" (keyup)="getUserInput($event)" placeholder="Bottom text">
   </div>
   <div class="rightToolbar">
     <button mat-flat-button color="primary" type="submit" (click)="uploadImage()" mat-button>save</button>
     <button mat-flat-button routerLink="/"mat-button>cancel</button>
   </div>
 </form>
-
-
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <canvas id="canvas" width="500" height="500"></canvas>
 

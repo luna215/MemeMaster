@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 
 export class MemeListComponent implements AfterViewInit {
+    isLoading = false;
     public memes: Observable<any[]>;
     private memeCounter = 0;
     private list: any;

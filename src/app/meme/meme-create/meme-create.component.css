@@ -4,6 +4,9 @@ canvas {
     margin-left: auto;
     margin-right: auto;
 }
+mat-spinner {
+  margin: 0 auto;
+}
 
 input {
   display: block;
