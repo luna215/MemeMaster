@@ -47,9 +47,9 @@ export class AuthService {
         .then(() => {
           this.firebase.auth.signInWithEmailAndPassword(email, password);
           this.authStatusListener.next(true);
-          this.router.navigate([''])
+          this.router.navigate(['']);
         })
-        .catch(() => { alert('Uh oh! There was an issue. Try again.') });
+        .catch(() => { alert('Uh oh! There was an issue. Try again.'); });
   }
 
   login(email, password) {
