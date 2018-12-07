@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -35,6 +36,7 @@ import { ReplaceDashes } from './app.pipe';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     AppRoutingModule,
+    HttpModule,
     FormsModule,
     MatCardModule,
   ],

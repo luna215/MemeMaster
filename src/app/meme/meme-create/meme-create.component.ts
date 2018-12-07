@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, ResponseContentType } from '@angular/http';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
+
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -30,7 +33,9 @@ export class MemeCreateComponent implements OnInit {
                 private db: AngularFireDatabase,
                 private auth: AuthService,
                 private router: Router,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private http: Http,
+                private sanitizer: DomSanitizer) {
         this.userId = this.auth.getUserId();
         this.userMemeRef = db.database.ref(`${this.userId}`).child(`memesData`);
 
@@ -44,18 +49,20 @@ export class MemeCreateComponent implements OnInit {
               this.userText['title'] = paramMap.get('memeTitle');
               this.db.list(`${this.userId}/memesData/${this.userText['title']}`).valueChanges().subscribe(data => {
                   this.ref =  this.storageRef.storage.ref(`${data[2]}`).getDownloadURL().then(url => {
-                    // const xhr = new XMLHttpRequest();
-                    // xhr.responseType = 'blob';
-                    // xhr.setRequestHeader = (name: 'Access-Control-Allow-Origin');
-                    // xhr.onload = (function(imgFile) {
-                    //   return function() {
-                    //     imgFile = xhr.response;
-                    //   };
-                    // })(this.imgFile);
-                    // xhr.open('GET', url);
-                    // xhr.send();
-
-                    // this.getUserInput();
+                    this.http.get('https://cors-anywhere.herokuapp.com/' + url, {
+                      responseType: ResponseContentType.Blob,
+                    }).toPromise()
+                      .then((res: any) => {
+                        this.imgFile = new Blob([res._body], {
+                          type: res.headers.get('Content-Type')
+                        });
+                        this.imgFile.name = `${this.userText['title']}`;
+                      }).then(() => {
+                          this.userText['topText'] = data[4] as string ;
+                          this.userText['bottomText'] = data[0] as string;
+                          this.getUserInput();
+                        }
+                      );
                   });
               });
             }
@@ -111,11 +118,11 @@ export class MemeCreateComponent implements OnInit {
         console.log('saving image...');
         this.userText['title'] = this.userText['title'].toLocaleLowerCase().replace(/\s/g, '-');
         const memeData = {
-            title: this.userText['title'],
-            topText: this.userText['topText'],
             bottomText: this.userText['bottomText'],
             refToMeme: `${this.userId}/meme/${this.userText['title']}.jpg`,
             refToOriginal: `${this.userId}/original/${this.imgFile.name}`,
+            title: this.userText['title'],
+            topText: this.userText['topText'],
         };
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         canvas.toBlob((blob) => {
