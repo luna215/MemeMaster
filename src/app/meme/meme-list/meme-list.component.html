@@ -9,6 +9,6 @@
   <mat-card-actions>
     <button mat-button (click)="share(meme.title)">SHARE</button>
     <button [routerLink]="['/edit', meme.title]" mat-button>EDIT</button>
-    <button mat-button color="warn">DELETE</button>
+    <button mat-button color="warn" (click)="deleteMeme(meme.title)">DELETE</button>
   </mat-card-actions>
 </mat-card>

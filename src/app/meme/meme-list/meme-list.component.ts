@@ -48,4 +48,10 @@ export class MemeListComponent implements AfterViewInit {
                   '&t=' + encodeURIComponent(alt), 'sharer', 'toolbar=0,status=0,width=626,height=436');
       return false;
     }
+
+    deleteMeme(title) {
+      if (confirm(`You sure you want to delete this meme?`)) {
+        this.db.list(`${this.userId}/memesData/${title}`).remove();
+      }
+    }
 }
